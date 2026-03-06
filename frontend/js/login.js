@@ -1,16 +1,19 @@
 async function login(){
 
-let user=document.getElementById("user").value
-let pass=document.getElementById("pass").value
+let u=document.getElementById("user").value
+let p=document.getElementById("pass").value
 
 let r=await fetch("/login",{
 method:"POST",
 headers:{'Content-Type':'application/json'},
-body:JSON.stringify({username:user,password:pass})
+body:JSON.stringify({
+username:u,
+password:p
+})
 })
 
-let data=await r.json()
+let d=await r.json()
 
-if(data.status=="ok")
+if(d.status=="ok")
 location.href="dashboard.html"
 }
