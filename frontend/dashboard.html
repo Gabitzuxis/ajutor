@@ -1,14 +1,19 @@
-<h2>Reel Generator</h2>
+<h2>AI Reel Generator</h2>
+
+<label>Script</label>
 
 <textarea id="script"></textarea>
+
+<label>Prompturi imagini</label>
 
 <textarea id="prompts"></textarea>
 
 <label>Voice Speed</label>
-<input type="range" id="speed" min="0.8" max="1.2" step="0.05">
 
-<button onclick="generate()">Generate</button>
+<input id="speed" type="range" min="0.8" max="1.2" step="0.05">
 
-<a id="download" style="display:none">Download</a>
+<button onclick="generate()">Generate Video</button>
+
+<a id="download" style="display:none">Download Video</a>
 
 <script src="js/dashboard.js"></script>
