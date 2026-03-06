@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image,ImageDraw
 import random
 
 def generate_images(prompts):
@@ -17,10 +17,14 @@ def generate_images(prompts):
             )
         )
 
-        path=f"img{i}.png"
+        d=ImageDraw.Draw(img)
 
-        img.save(path)
+        d.text((40,900),p,(255,255,255))
 
-        images.append(path)
+        name=f"img{i}.png"
+
+        img.save(name)
+
+        images.append(name)
 
     return images
