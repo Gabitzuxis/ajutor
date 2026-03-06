@@ -9,7 +9,7 @@ let prompts=document
 
 let speed=document.getElementById("speed").value
 
-let r=await fetch("/generate",{
+await fetch("/generate",{
 method:"POST",
 headers:{'Content-Type':'application/json'},
 body:JSON.stringify({
@@ -19,8 +19,10 @@ speed:speed
 })
 })
 
-document.getElementById("download").style.display="block"
+let d=document.getElementById("download")
 
-document.getElementById("download").href="/download"
+d.href="/download"
+
+d.style.display="block"
 
 }
