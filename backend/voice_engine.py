@@ -1,20 +1,18 @@
 import subprocess
 
-def generate_voice(script, speed):
+def generate_voice(script,speed):
 
     with open("script.txt","w") as f:
         f.write(script)
 
+    rate = int(170*float(speed))
+
     subprocess.run([
         "espeak",
-        "-s",
-        str(int(170*speed)),
-        "-v",
-        "ro",
-        "-f",
-        "script.txt",
-        "-w",
-        "voice.wav"
+        "-v","ro",
+        "-s",str(rate),
+        "-f","script.txt",
+        "-w","voice.wav"
     ])
 
     return "voice.wav"
