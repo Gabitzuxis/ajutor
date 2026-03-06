@@ -1,47 +1,35 @@
 import subprocess
-import json
 
 from backend.voice_engine import generate_voice
 from backend.image_engine import generate_images
+from backend.utils.audio import get_audio_duration
 
-def get_audio_duration(file):
+def generate_video(script,prompts,speed):
 
-    result = subprocess.run(
-        [
-            "ffprobe",
-            "-v","error",
-            "-show_entries","format=duration",
-            "-of","json",
-            file
-        ],
-        capture_output=True,
-        text=True
-    )
+    voice=generate_voice(script,speed)
 
-    data = json.loads(result.stdout)
+    images=generate_images(prompts)
 
-    return float(data["format"]["duration"])
+    audio_duration=get_audio_duration(voice)
 
-
-def generate_video(script, prompts, speed):
-
-    voice = generate_voice(script, speed)
-
-    images = generate_images(prompts)
-
-    audio_duration = get_audio_duration(voice)
-
-    duration = audio_duration / len(images)
+    duration=audio_duration/len(images)
 
     inputs=[]
 
     for img in images:
-        inputs += ["-loop","1","-t",str(duration),"-i",img]
+
+        inputs += [
+            "-loop","1",
+            "-t",str(duration),
+            "-i",img
+        ]
 
     cmd=[
         "ffmpeg",
         *inputs,
         "-i",voice,
+        "-vf",
+        "scale=1080:1920,zoompan=z='zoom+0.0005':d=125",
         "-pix_fmt","yuv420p",
         "-shortest",
         "output.mp4"
